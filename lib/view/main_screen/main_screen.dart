@@ -7,6 +7,7 @@ import 'package:techblog_githubbased/component/my_string.dart';
 import 'package:techblog_githubbased/gen/assets.gen.dart';
 import 'package:techblog_githubbased/view/main_screen/home_screen.dart';
 import 'package:techblog_githubbased/view/main_screen/profile_screen.dart';
+import 'package:techblog_githubbased/view/main_screen/register/regester_intro.dart';
 
 // ignore: must_be_immutable
 class MainScreen extends StatelessWidget {
@@ -178,7 +179,11 @@ class BottomNavigationBotton extends StatelessWidget {
                       color: Colors.white,
                     )),
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      /// TODO: check register status 
+                 Get.to( RegsterIntro());
+
+                    },
                     icon: ImageIcon(
                       Assets.icons.write.provider(),
                       color: Colors.white,

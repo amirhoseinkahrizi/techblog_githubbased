@@ -7,8 +7,8 @@ import 'package:techblog_githubbased/servisec/dio_services.dart';
 class ListArticleContoroller extends GetxController {
   RxList<ArticleModel> articleList = RxList();
   RxBool loading = true.obs;
-  RxList <TagModel> taglist=RxList();
-  RxList <ArticleModel> relatedList=RxList();
+  RxList<TagModel> taglist = RxList();
+  RxList<ArticleModel> relatedList = RxList();
   @override
   onInit() {
     super.onInit();
@@ -17,7 +17,6 @@ class ListArticleContoroller extends GetxController {
 
   getlist() async {
     //  RxBool loading=true.obs;
-
     var response = await DioServices().getMethod(ApiConstant.getArticleList);
 
     if (response.statusCode == 200) {
@@ -32,7 +31,10 @@ class ListArticleContoroller extends GetxController {
   getArticleListWithTagsId(String iD) async {
     //  RxBool loading=true.obs;
 
-    var response = await DioServices().getMethod('${ApiConstant.baseurl}article/get.php?command=get_articles_with_tag_id&tag_id=$iD&user_id=');
+    taglist = RxList();
+
+    var response = await DioServices().getMethod(
+        '${ApiConstant.baseurl}article/get.php?command=get_articles_with_tag_id&tag_id=$iD&user_id=');
 
     if (response.statusCode == 200) {
       response.data.forEach((element) {

@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:techblog_githubbased/component/my_colors.dart';
 import 'package:techblog_githubbased/gen/fonts.gen.dart';
-import 'package:techblog_githubbased/view/article_list_screen.dart';
+import 'package:techblog_githubbased/view/splashscreen.dart';
 
 void main() {
   // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
@@ -125,6 +125,6 @@ class MyApp extends StatelessWidget {
                   fontWeight: FontWeight.w300,
                   color: SolidColors.contentcolors)),
         ),
-        home: ArticleListScreen());
+        home: const SplashScreen());
   }
 }

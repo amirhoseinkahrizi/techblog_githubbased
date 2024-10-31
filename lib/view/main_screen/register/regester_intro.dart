@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:techblog_githubbased/component/my_string.dart';
+import 'package:techblog_githubbased/controller/register_contoroller.dart';
 import 'package:techblog_githubbased/gen/assets.gen.dart';
 import 'package:techblog_githubbased/view/my_cats.dart';
 import 'package:validators/validators.dart';
 import 'dart:developer';
 
 class RegsterIntro extends StatelessWidget {
-  const RegsterIntro({super.key});
+   RegsterIntro({super.key});
+  RegisterContoroller registerContoroller=Get.put(RegisterContoroller());
 
   @override
   Widget build(BuildContext context) {
@@ -79,6 +82,7 @@ class RegsterIntro extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(24.0),
                     child: TextField(
+                      controller:registerContoroller.emailTextEditingController ,
                       onChanged: (value) {
                         log("your email is=${isEmail(value)}");
                       },
@@ -132,6 +136,7 @@ class RegsterIntro extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(24.0),
                     child: TextField(
+                      controller: registerContoroller.activateCodeTextEditingController,
                       onChanged: (value) {
                         log("your email is=${isEmail(value)}");
                       },

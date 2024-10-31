@@ -2,11 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:techblog_githubbased/controller/home_screen_contoroller.dart';
+import 'package:techblog_githubbased/controller/single_article_contoroller.dart';
 import 'package:techblog_githubbased/gen/assets.gen.dart';
-import 'package:techblog_githubbased/models/facke_data.dart';
 import 'package:techblog_githubbased/component/my_colors.dart';
 import 'package:techblog_githubbased/component/my_component.dart';
 import 'package:techblog_githubbased/component/my_string.dart';
+import 'package:techblog_githubbased/view/article_list_screen.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
@@ -21,6 +22,7 @@ class HomeScreen extends StatelessWidget {
   final TextTheme textTheme;
   final double bodymargin;
   HomeScreenContoroler homeScreenContoroler = Get.put(HomeScreenContoroler());
+  SingleArticleContoroller singleArticleContoroller =Get.put(SingleArticleContoroller());
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -41,8 +43,13 @@ class HomeScreen extends StatelessWidget {
                         const SizedBox(
                           height: 32,
                         ),
-                        SeeMoreBlog(
-                            bodymargin: bodymargin, textTheme: textTheme),
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(ArticleListScreen(title: "مشاهده داغ ترین نوشته ها"));
+                           },
+                          child: SeeMoreBlog(
+                              bodymargin: bodymargin, textTheme: textTheme),
+                        ),
                         ////view hotest blog
 
                         topVisited(),
@@ -55,7 +62,9 @@ class HomeScreen extends StatelessWidget {
                         )
                       ],
                     )
-                  : const Center(child: loading())),
+                  : SizedBox(
+                    height: Get.height,
+                    child: const Center(child: loading()))),
         ),
       ),
     );
@@ -114,87 +123,92 @@ class HomeScreen extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemCount: homeScreenContoroler.topVisitedList.length,
           itemBuilder: (context, index) {
-            return Padding(
-              padding: EdgeInsets.only(right: index == 0 ? bodymargin : 8),
-              child: Column(
-                children: [
-                  Stack(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          height: size.height / 5.0,
-                          width: size.width / 2.2,
-                          child: CachedNetworkImage(
-                            imageUrl: homeScreenContoroler
-                                .topVisitedList[index].image!,
-                            imageBuilder: (context, imageProvider) {
-                              return Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                      Radius.circular(25),
-                                    ),
-                                    image: DecorationImage(
-                                        image: imageProvider,
-                                        fit: BoxFit.fill)),
-                                foregroundDecoration: const BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(25)),
-                                    gradient: LinearGradient(
-                                        colors: Gradiant.blogpostgradiant,
-                                        begin: Alignment.bottomCenter,
-                                        end: Alignment.topCenter)),
-                              );
-                            },
-                            placeholder: (context, url) => const loading(),
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.image_not_supported_outlined),
+            return GestureDetector(
+              onTap: () {
+                singleArticleContoroller.getSimilarinfo(homeScreenContoroler.topVisitedList[index].id!);
+              },
+              child: Padding(
+                padding: EdgeInsets.only(right: index == 0 ? bodymargin : 8),
+                child: Column(
+                  children: [
+                    Stack(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            height: size.height / 5.0,
+                            width: size.width / 2.2,
+                            child: CachedNetworkImage(
+                              imageUrl: homeScreenContoroler
+                                  .topVisitedList[index].image!,
+                              imageBuilder: (context, imageProvider) {
+                                return Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(25),
+                                      ),
+                                      image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.fill)),
+                                  foregroundDecoration: const BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(25)),
+                                      gradient: LinearGradient(
+                                          colors: Gradiant.blogpostgradiant,
+                                          begin: Alignment.bottomCenter,
+                                          end: Alignment.topCenter)),
+                                );
+                              },
+                              placeholder: (context, url) => const loading(),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.image_not_supported_outlined),
+                            ),
                           ),
                         ),
-                      ),
-                      Positioned(
-                          bottom: 18,
-                          left: 13,
-                          right: 13,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                homeScreenContoroler
-                                    .topVisitedList[index].author!,
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                      homeScreenContoroler
-                                          .topVisitedList[index].view!,
-                                      style: textTheme.titleSmall),
-                                  const SizedBox(
-                                    width: 8,
-                                  ),
-                                  const Icon(
-                                    Icons.remove_red_eye_sharp,
-                                    color: Colors.white,
-                                  ),
-                                ],
-                              )
-                            ],
-                          ))
-                    ],
-                  ),
-                  SizedBox(
-                    width: size.width / 2.3,
-                    child: Text(
-                      homeScreenContoroler.topVisitedList[index].title!,
-                      style: textTheme.bodySmall,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
+                        Positioned(
+                            bottom: 18,
+                            left: 13,
+                            right: 13,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  homeScreenContoroler
+                                      .topVisitedList[index].author!,
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                        homeScreenContoroler
+                                            .topVisitedList[index].view!,
+                                        style: textTheme.titleSmall),
+                                    const SizedBox(
+                                      width: 8,
+                                    ),
+                                    const Icon(
+                                      Icons.remove_red_eye_sharp,
+                                      color: Colors.white,
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ))
+                      ],
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      width: size.width / 2.3,
+                      child: Text(
+                        homeScreenContoroler.topVisitedList[index].title!,
+                        style: textTheme.bodySmall,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           },
@@ -269,7 +283,7 @@ class HomeScreen extends StatelessWidget {
         height: 60,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: taglist.length,
+          itemCount: homeScreenContoroler.tagList.length,
           itemBuilder: (context, index) {
             return Padding(
               padding:

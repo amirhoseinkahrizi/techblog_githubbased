@@ -3,7 +3,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:techblog_githubbased/component/my_constant.dart';
 import 'package:techblog_githubbased/controller/home_screen_contoroller.dart';
+import 'package:techblog_githubbased/controller/list_article_contoroller.dart';
 import 'package:techblog_githubbased/gen/assets.gen.dart';
+import 'package:techblog_githubbased/view/article_list_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'my_colors.dart';
 
@@ -27,7 +29,7 @@ class TechDivider extends StatelessWidget {
 }
 
 class MainTags extends StatelessWidget {
-  const MainTags({
+   MainTags({
     super.key,
     required this.textTheme,
     required this.index,
@@ -35,6 +37,9 @@ class MainTags extends StatelessWidget {
 
   final TextTheme textTheme;
   final index;
+
+  HomeScreenContoroler homeScreenContoroler =Get.put(HomeScreenContoroler());
+  ListArticleContoroller listArticleContoroller =Get.put(ListArticleContoroller());
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +63,15 @@ class MainTags extends StatelessWidget {
               const SizedBox(
                 width: 8,
               ),
-              Text(
-                Get.find<HomeScreenContoroler>().tagList[index].title!,
-                style: textTheme.bodyMedium,
+              GestureDetector(
+                onTap: () {
+                   listArticleContoroller.getArticleListWithTagsId(homeScreenContoroler.tagList[index].id!);
+            Get.to(ArticleListScreen(title: homeScreenContoroler.tagList[index].title));
+                },
+                child: Text(
+                  Get.find<HomeScreenContoroler>().tagList[index].title!,
+                  style: textTheme.bodyMedium,
+                ),
               ),
             ],
           ),
@@ -108,18 +119,32 @@ PreferredSize appBar(String title) {
           ],
           leading: Padding(
             padding: const EdgeInsets.only(right: 16),
-            child: Container(
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: SolidColors.maincolor.withBlue(100),
-                ),
-                child: const Icon(
-                  Icons.keyboard_arrow_right_rounded,
-                  color: Colors.white,
-                )),
+            child: GestureDetector(
+              onTap: () => Get.back(),
+              child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: SolidColors.maincolor.withBlue(100),
+                  ),
+                  child: const Icon(
+                    Icons.keyboard_arrow_right_rounded,
+                    color: Colors.white,
+                  )),
+            ),
           )),
     ),
   );
 }
+
+
+
+
+ 
+  
+ 
+
+
+
+

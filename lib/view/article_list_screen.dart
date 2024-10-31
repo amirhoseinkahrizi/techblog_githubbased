@@ -4,11 +4,12 @@ import 'package:get/get.dart';
 import 'package:techblog_githubbased/component/my_component.dart';
 import 'package:techblog_githubbased/controller/list_article_contoroller.dart';
 import 'package:techblog_githubbased/controller/single_article_contoroller.dart';
-import 'package:techblog_githubbased/view/main_screen/single_screen.dart';
 
 // ignore: must_be_immutable
 class ArticleListScreen extends StatelessWidget {
-  ArticleListScreen({super.key});
+  ArticleListScreen({   super.key , required this.title});
+
+ var title;
 
   ListArticleContoroller listarticleContoroller = Get.put(ListArticleContoroller());
 
@@ -20,7 +21,7 @@ class ArticleListScreen extends StatelessWidget {
     var textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: appBar("مقالات"),
+      appBar: appBar(title),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SizedBox(
@@ -30,7 +31,7 @@ class ArticleListScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      Get.to( const SingleScreen(),arguments:singleArticleContoroller.Id.value=int.parse(listarticleContoroller.articleList[index].id!) );
+                      singleArticleContoroller.getArtileInfo(listarticleContoroller.articleList[index].id);
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
