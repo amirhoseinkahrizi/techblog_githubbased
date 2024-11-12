@@ -11,6 +11,7 @@ import 'package:techblog_githubbased/gen/assets.gen.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:techblog_githubbased/view/article_list_screen.dart';
 
+// ignore: must_be_immutable
 class SingleScreen extends StatelessWidget {
   SingleScreen({super.key});
 
@@ -39,7 +40,7 @@ class SingleScreen extends StatelessWidget {
             () => singleArticleContoroller.articleinfomodel.value.content ==
                     null
                 ? SizedBox(
-                    height: Get.height, child: const Center(child: loading()))
+                    height: Get.height, child: const Center(child: Loading()))
                 : Column(
                     children: [
                       Stack(
@@ -55,7 +56,7 @@ class SingleScreen extends StatelessWidget {
                               },
                               errorWidget: (context, url, error) => Image.asset(
                                   Assets.images.singleplaceholder.path),
-                              placeholder: (context, url) => const loading(),
+                              placeholder: (context, url) => const Loading(),
                             ),
                           ),
                           Positioned(
@@ -156,7 +157,7 @@ class SingleScreen extends StatelessWidget {
                               .articleinfomodel.value.content!,
                           onLoadingBuilder:
                               (context, element, loadingProgress) =>
-                                  const loading(),
+                                  const Loading(),
                           enableCaching: true,
                           textStyle: textTheme.headlineMedium,
                         ),
@@ -291,7 +292,7 @@ class SingleScreen extends StatelessWidget {
                                               );
                                             },
                                             placeholder: (context, url) =>
-                                                const Center(child: loading()),
+                                                const Center(child: Loading()),
                                             errorWidget:
                                                 (context, url, error) =>
                                                     const Center(

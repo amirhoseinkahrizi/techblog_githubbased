@@ -95,6 +95,7 @@ class RegsterIntro extends StatelessWidget {
                   ),
                   ElevatedButton(
                       onPressed: () {
+                        registerContoroller.register();
                         Navigator.pop(context);
                         _activateCodeBottomSheet(context, size, textTheme);
                       },

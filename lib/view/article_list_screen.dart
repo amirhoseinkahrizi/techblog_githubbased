@@ -54,7 +54,7 @@ class ArticleListScreen extends StatelessWidget {
                                           fit: BoxFit.cover)),
                                 );
                               },
-                              placeholder: (context, url) => const loading(),
+                              placeholder: (context, url) => const Loading(),
                               errorWidget: (context, url, error) => const Icon(
                                 Icons.image_not_supported_rounded,
                                 color: Colors.grey,

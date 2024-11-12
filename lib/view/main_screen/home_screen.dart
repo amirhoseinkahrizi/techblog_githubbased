@@ -64,7 +64,7 @@ class HomeScreen extends StatelessWidget {
                     )
                   : SizedBox(
                     height: Get.height,
-                    child: const Center(child: loading()))),
+                    child: const Center(child: Loading()))),
         ),
       ),
     );
@@ -159,7 +159,7 @@ class HomeScreen extends StatelessWidget {
                                           end: Alignment.topCenter)),
                                 );
                               },
-                              placeholder: (context, url) => const loading(),
+                              placeholder: (context, url) => const Loading(),
                               errorWidget: (context, url, error) =>
                                   const Icon(Icons.image_not_supported_outlined),
                             ),
@@ -246,7 +246,7 @@ class HomeScreen extends StatelessWidget {
                           );
                         },
                         placeholder: (context, url) {
-                          return const loading();
+                          return const Loading();
                         },
                         errorWidget: (context, url, error) {
                           return const Icon(

@@ -86,8 +86,8 @@ myLuanchUrl(String url) async {
   }
 }
 
-class loading extends StatelessWidget {
-  const loading({
+class Loading extends StatelessWidget {
+  const Loading({
     super.key,
   });
 
