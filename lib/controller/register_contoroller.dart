@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:techblog_githubbased/component/api_constant.dart';
@@ -17,6 +19,8 @@ class RegisterContoroller extends GetxController {
     var response =
         await DioServices().postMethod(map, ApiConstant.postRegister);
 
-    print(response);
+    log("response Data ${response.data.toString()}");
+
+    
   }
 }
