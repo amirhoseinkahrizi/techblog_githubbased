@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:techblog_githubbased/component/my_string.dart';
 import 'package:techblog_githubbased/controller/register_contoroller.dart';
 import 'package:techblog_githubbased/gen/assets.gen.dart';
-import 'package:techblog_githubbased/view/my_cats.dart';
 import 'package:validators/validators.dart';
 import 'dart:developer';
 
@@ -139,7 +138,7 @@ class RegsterIntro extends StatelessWidget {
                     child: TextField(
                       controller: registerContoroller.activateCodeTextEditingController,
                       onChanged: (value) {
-                        log("your email is=${isEmail(value)}");
+                       log("isNumeric${isNumeric(value)}") ;
                       },
                       style: textTheme.bodySmall,
                       textAlign: TextAlign.center,
@@ -149,11 +148,12 @@ class RegsterIntro extends StatelessWidget {
                     ),
                   ),
                   ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (context) {
-                          return const Mycats();
-                        }));
+                      onPressed: ()async {
+                        // Navigator.of(context).pushReplacement(
+                        //     MaterialPageRoute(builder: (context) {
+                        //   return const Mycats();
+                        // }));
+                        registerContoroller.verify();
                       },
                       child: const Text("ادامه"))
                 ],
