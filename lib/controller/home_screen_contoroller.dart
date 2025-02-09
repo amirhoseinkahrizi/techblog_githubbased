@@ -1,5 +1,6 @@
+import 'dart:developer';
 import 'package:get/get.dart';
-import 'package:techblog_githubbased/component/api_constant.dart';
+import 'package:techblog_githubbased/constante/api_constant.dart';
 import 'package:techblog_githubbased/models/article_model.dart';
 import 'package:techblog_githubbased/models/podcast_model.dart';
 import 'package:techblog_githubbased/models/poster_model.dart';
@@ -12,18 +13,16 @@ class HomeScreenContoroler extends GetxController {
   RxList<ArticleModel> topVisitedList = RxList();
   RxList<PodcastModel> topPodcast = RxList();
   Rx<PosterModel> poster = PosterModel().obs;
- 
-   @override
+
+  @override
   onInit() {
     super.onInit();
     getHomeItems();
   }
-  
-  
 
   getHomeItems() async {
-     loading.value=true;
-    var response = await DioServices().getMethod(ApiConstant.gethomeItems);
+    loading.value = true;
+    var response = await DioServices().getMethod(ApiUrlConstant.gethomeItems);
 
     if (response.statusCode == 200) {
       response.data['top_visited'].forEach((element) {
@@ -39,7 +38,7 @@ class HomeScreenContoroler extends GetxController {
       });
 
       poster.value = PosterModel.fromJson(response.data['poster']);
-
+      log(poster.obs.toString());
       loading.value = false;
     }
   }

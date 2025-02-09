@@ -22,9 +22,18 @@ class $AssetsIconsGen {
   AssetGenImage get homeIcon =>
       const AssetGenImage('assets/icons/home icon.png');
 
+  /// File path: assets/icons/microphoneIcons.svg
+  String get microphoneIcons => 'assets/icons/microphoneIcons.svg';
+
   /// File path: assets/icons/podcast icons.png
   AssetGenImage get podcastIcons =>
       const AssetGenImage('assets/icons/podcast icons.png');
+
+  /// File path: assets/icons/techBot.svg
+  String get techBot => 'assets/icons/techBot.svg';
+
+  /// File path: assets/icons/techbot_unhappy.svg
+  String get techbotUnhappy => 'assets/icons/techbot_unhappy.svg';
 
   /// File path: assets/icons/user.png
   AssetGenImage get user => const AssetGenImage('assets/icons/user.png');
@@ -32,9 +41,22 @@ class $AssetsIconsGen {
   /// File path: assets/icons/write.png
   AssetGenImage get write => const AssetGenImage('assets/icons/write.png');
 
+  /// File path: assets/icons/writeIcons.svg
+  String get writeIcons => 'assets/icons/writeIcons.svg';
+
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [bluepen, hashtag, homeIcon, podcastIcons, user, write];
+  List<dynamic> get values => [
+        bluepen,
+        hashtag,
+        homeIcon,
+        microphoneIcons,
+        podcastIcons,
+        techBot,
+        techbotUnhappy,
+        user,
+        write,
+        writeIcons
+      ];
 }
 
 class $AssetsImagesGen {
@@ -58,10 +80,6 @@ class $AssetsImagesGen {
   /// File path: assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
 
-  /// File path: assets/images/photo_2024-07-12_23-11-48.jpg
-  AssetGenImage get photo20240712231148 =>
-      const AssetGenImage('assets/images/photo_2024-07-12_23-11-48.jpg');
-
   /// File path: assets/images/poster.png
   AssetGenImage get poster => const AssetGenImage('assets/images/poster.png');
 
@@ -79,7 +97,6 @@ class $AssetsImagesGen {
         avatarscreen,
         db2,
         logo,
-        photo20240712231148,
         poster,
         singleplaceholder,
         techblogbot
@@ -123,7 +140,7 @@ class AssetGenImage {
     ImageRepeat repeat = ImageRepeat.noRepeat,
     Rect? centerSlice,
     bool matchTextDirection = false,
-    bool gaplessPlayback = false,
+    bool gaplessPlayback = true,
     bool isAntiAlias = false,
     String? package,
     FilterQuality filterQuality = FilterQuality.low,

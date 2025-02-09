@@ -1,7 +1,6 @@
-
 import 'dart:ffi';
 
-import 'package:techblog_githubbased/component/api_constant.dart';
+import 'package:techblog_githubbased/constante/api_constant.dart';
 
 class ArticleInfoModel {
   String? id;
@@ -16,7 +15,7 @@ class ArticleInfoModel {
   String? createdAt;
   Bool? isFavorite;
 
-  ArticleInfoModel();
+  ArticleInfoModel(this.title, this.image, this.content);
 
   ArticleInfoModel.fromJson(Map<String, dynamic> element) {
     var info = element["info"];
@@ -24,7 +23,7 @@ class ArticleInfoModel {
     id = info["id"];
     title = info["title"];
     content = info["content"];
-    image =ApiConstant.hostDlUrl+info["image"];
+    image = ApiUrlConstant.hostDlUrl + info["image"];
     catId = info["cat_id"];
     catName = info["cat_name"];
     author = info["author"];

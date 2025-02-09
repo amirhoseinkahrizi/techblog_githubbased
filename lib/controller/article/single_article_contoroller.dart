@@ -1,24 +1,25 @@
 import 'package:get/get.dart';
-import 'package:techblog_githubbased/component/api_constant.dart';
+import 'package:techblog_githubbased/constante/api_constant.dart';
 import 'package:techblog_githubbased/models/article_info_model.dart';
 import 'package:techblog_githubbased/models/article_model.dart';
 import 'package:techblog_githubbased/models/tag_model.dart';
 import 'package:techblog_githubbased/servisec/dio_services.dart';
-import 'package:techblog_githubbased/view/main_screen/single_screen.dart';
+import 'package:techblog_githubbased/view/article/single_screen.dart';
 
 class SingleArticleContoroller extends GetxController {
   RxInt iD = RxInt(0);
   RxBool loading = true.obs;
   var userId = "";
-  Rx<ArticleInfoModel> articleinfomodel = ArticleInfoModel().obs;
+  Rx<ArticleInfoModel> articleinfomodel =
+      ArticleInfoModel(null, null, null).obs;
   RxList<TagModel> tagList = RxList();
   RxList<ArticleModel> reletaedList = RxList();
 
-  getArtileInfo( var iD) async {
+  getArtileInfo(var iD) async {
     //  RxBool loading=true.obs;
-    articleinfomodel=ArticleInfoModel().obs;
+    articleinfomodel = ArticleInfoModel(null, null, null).obs;
     var response = await DioServices().getMethod(
-        '${ApiConstant.baseurl}article/get.php?command=info&id=$iD&user_id=$userId');
+        '${ApiUrlConstant.baseurl}article/get.php?command=info&id=$iD&user_id=$userId');
 
     if (response.statusCode == 200) {
       articleinfomodel.value = ArticleInfoModel.fromJson(response.data);
@@ -36,11 +37,11 @@ class SingleArticleContoroller extends GetxController {
     Get.to(SingleScreen());
   }
 
- getSimilarinfo(var iD) async {
+  getSimilarinfo(var iD) async {
     //  RxBool loading=true.obs;
 
     var response = await DioServices().getMethod(
-        '${ApiConstant.baseurl}article/get.php?command=info&id=$iD&user_id=$userId');
+        '${ApiUrlConstant.baseurl}article/get.php?command=info&id=$iD&user_id=$userId');
 
     if (response.statusCode == 200) {
       articleinfomodel.value = ArticleInfoModel.fromJson(response.data);
@@ -57,6 +58,4 @@ class SingleArticleContoroller extends GetxController {
     }
     Get.to(SingleScreen());
   }
-
-
 }

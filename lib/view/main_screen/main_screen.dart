@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:techblog_githubbased/component/my_colors.dart';
+import 'package:techblog_githubbased/constante/my_colors.dart';
 import 'package:techblog_githubbased/component/my_component.dart';
-import 'package:techblog_githubbased/component/my_string.dart';
+import 'package:techblog_githubbased/constante/my_string.dart';
+import 'package:techblog_githubbased/controller/register_contoroller.dart';
 import 'package:techblog_githubbased/gen/assets.gen.dart';
 import 'package:techblog_githubbased/view/main_screen/home_screen.dart';
 import 'package:techblog_githubbased/view/main_screen/profile_screen.dart';
-import 'package:techblog_githubbased/view/main_screen/register/regester_intro.dart';
 
 // ignore: must_be_immutable
 class MainScreen extends StatelessWidget {
@@ -168,10 +168,8 @@ class BottomNavigationBotton extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(25)),
                 gradient: LinearGradient(colors: Gradiant.bottemnav)),
             child: Row(
-              
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-               
                 IconButton(
                     onPressed: () => changeScreen(0),
                     icon: ImageIcon(
@@ -180,9 +178,7 @@ class BottomNavigationBotton extends StatelessWidget {
                     )),
                 IconButton(
                     onPressed: () {
-                      /// TODO: check register status 
-                 Get.to( RegsterIntro());
-
+                      Get.find<RegisterContoroller>().toggleLogin();
                     },
                     icon: ImageIcon(
                       Assets.icons.write.provider(),
@@ -194,7 +190,6 @@ class BottomNavigationBotton extends StatelessWidget {
                       Assets.icons.user.provider(),
                       color: Colors.white,
                     )),
-               
               ],
             ),
           ),

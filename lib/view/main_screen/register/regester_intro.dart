@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:techblog_githubbased/component/my_string.dart';
+import 'package:techblog_githubbased/constante/my_string.dart';
 import 'package:techblog_githubbased/controller/register_contoroller.dart';
 import 'package:techblog_githubbased/gen/assets.gen.dart';
 import 'package:validators/validators.dart';
 import 'dart:developer';
 
 class RegsterIntro extends StatelessWidget {
-   RegsterIntro({super.key});
-  RegisterContoroller registerContoroller=Get.put(RegisterContoroller());
+  RegsterIntro({super.key});
+  var registerContoroller = Get.find<RegisterContoroller>();
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +81,8 @@ class RegsterIntro extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(24.0),
                     child: TextField(
-                      controller:registerContoroller.emailTextEditingController ,
+                      controller:
+                          registerContoroller.emailTextEditingController,
                       onChanged: (value) {
                         log("your email is=${isEmail(value)}");
                       },
@@ -93,8 +94,8 @@ class RegsterIntro extends StatelessWidget {
                     ),
                   ),
                   ElevatedButton(
-                      onPressed: () async{
-                       registerContoroller.register();
+                      onPressed: () async {
+                        registerContoroller.register();
                         Navigator.pop(context);
                         _activateCodeBottomSheet(context, size, textTheme);
                       },
@@ -136,9 +137,10 @@ class RegsterIntro extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(24.0),
                     child: TextField(
-                      controller: registerContoroller.activateCodeTextEditingController,
+                      controller:
+                          registerContoroller.activateCodeTextEditingController,
                       onChanged: (value) {
-                       log("isNumeric${isNumeric(value)}") ;
+                        log("isNumeric${isNumeric(value)}");
                       },
                       style: textTheme.bodySmall,
                       textAlign: TextAlign.center,
@@ -148,7 +150,7 @@ class RegsterIntro extends StatelessWidget {
                     ),
                   ),
                   ElevatedButton(
-                      onPressed: ()async {
+                      onPressed: () async {
                         // Navigator.of(context).pushReplacement(
                         //     MaterialPageRoute(builder: (context) {
                         //   return const Mycats();

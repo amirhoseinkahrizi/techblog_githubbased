@@ -2,21 +2,22 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:techblog_githubbased/component/my_component.dart';
-import 'package:techblog_githubbased/controller/list_article_contoroller.dart';
-import 'package:techblog_githubbased/controller/single_article_contoroller.dart';
+import 'package:techblog_githubbased/controller/article/list_article_contoroller.dart';
+import 'package:techblog_githubbased/controller/article/single_article_contoroller.dart';
 
 // ignore: must_be_immutable
 class ArticleListScreen extends StatelessWidget {
-  ArticleListScreen({   super.key , required this.title});
+  ArticleListScreen({super.key, required this.title});
 
- var title;
+  var title;
 
-  ListArticleContoroller listarticleContoroller = Get.put(ListArticleContoroller());
+  ListArticleContoroller listarticleContoroller =
+      Get.put(ListArticleContoroller());
 
-  SingleArticleContoroller singleArticleContoroller=Get.put(SingleArticleContoroller());
+  SingleArticleContoroller singleArticleContoroller =
+      Get.put(SingleArticleContoroller());
 
   @override
-
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
 
@@ -25,13 +26,14 @@ class ArticleListScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SizedBox(
-          child: Obx(() =>   ListView.builder(
+          child: Obx(() => ListView.builder(
                 scrollDirection: Axis.vertical,
                 itemCount: listarticleContoroller.articleList.length,
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      singleArticleContoroller.getArtileInfo(listarticleContoroller.articleList[index].id);
+                      singleArticleContoroller.getArtileInfo(
+                          listarticleContoroller.articleList[index].id);
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -42,8 +44,8 @@ class ArticleListScreen extends StatelessWidget {
                             height: Get.height / 6,
                             width: Get.width / 3,
                             child: CachedNetworkImage(
-                              imageUrl:
-                                  listarticleContoroller.articleList[index].image!,
+                              imageUrl: listarticleContoroller
+                                  .articleList[index].image!,
                               imageBuilder: (context, imageProvider) {
                                 return Container(
                                   decoration: BoxDecoration(
@@ -71,19 +73,22 @@ class ArticleListScreen extends StatelessWidget {
                               SizedBox(
                                 width: MediaQuery.of(context).size.width / 2,
                                 child: Text(
-                                  listarticleContoroller.articleList[index].title!,
+                                  listarticleContoroller
+                                      .articleList[index].title!,
                                   style: textTheme.bodySmall,
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 2,
                                   textAlign: TextAlign.justify,
                                 ),
                               ),
-                              const SizedBox(height: 10,),
-                    
+                              const SizedBox(
+                                height: 10,
+                              ),
                               Row(
                                 children: [
                                   Text(
-                                    listarticleContoroller.articleList[index].author!,
+                                    listarticleContoroller
+                                        .articleList[index].author!,
                                     style: textTheme.bodySmall,
                                   ),
                                   const SizedBox(

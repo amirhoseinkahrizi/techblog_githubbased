@@ -2,12 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:techblog_githubbased/controller/home_screen_contoroller.dart';
-import 'package:techblog_githubbased/controller/single_article_contoroller.dart';
+import 'package:techblog_githubbased/controller/article/single_article_contoroller.dart';
 import 'package:techblog_githubbased/gen/assets.gen.dart';
-import 'package:techblog_githubbased/component/my_colors.dart';
+import 'package:techblog_githubbased/constante/my_colors.dart';
 import 'package:techblog_githubbased/component/my_component.dart';
-import 'package:techblog_githubbased/component/my_string.dart';
-import 'package:techblog_githubbased/view/article_list_screen.dart';
+import 'package:techblog_githubbased/constante/my_string.dart';
+import 'package:techblog_githubbased/view/article/article_list_screen.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
@@ -22,7 +22,8 @@ class HomeScreen extends StatelessWidget {
   final TextTheme textTheme;
   final double bodymargin;
   HomeScreenContoroler homeScreenContoroler = Get.put(HomeScreenContoroler());
-  SingleArticleContoroller singleArticleContoroller =Get.put(SingleArticleContoroller());
+  SingleArticleContoroller singleArticleContoroller =
+      Get.put(SingleArticleContoroller());
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -45,10 +46,14 @@ class HomeScreen extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Get.to(ArticleListScreen(title: "مشاهده داغ ترین نوشته ها"));
-                           },
+                            Get.to(ArticleListScreen(
+                                title: "مشاهده داغ ترین نوشته ها"));
+                          },
                           child: SeeMoreBlog(
-                              bodymargin: bodymargin, textTheme: textTheme),
+                            bodymargin: bodymargin,
+                            textTheme: textTheme,
+                            title: MyStrings.viewhotestwrite,
+                          ),
                         ),
                         ////view hotest blog
 
@@ -63,8 +68,8 @@ class HomeScreen extends StatelessWidget {
                       ],
                     )
                   : SizedBox(
-                    height: Get.height,
-                    child: const Center(child: Loading()))),
+                      height: Get.height,
+                      child: const Center(child: Loading()))),
         ),
       ),
     );
@@ -78,24 +83,34 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CachedNetworkImage(
-                imageUrl: homeScreenContoroler.poster.value.image!,
-                imageBuilder: (context, imageProvider) {
-                  return Container(
-                    height: size.height / 4.20,
-                    width: size.width / 1.25,
-                    decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(25)),
-                        image: DecorationImage(
-                            image: imageProvider, fit: BoxFit.cover)),
-                    foregroundDecoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(25)),
-                        gradient: LinearGradient(
-                            colors: Gradiant.postercovergradiant,
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter)),
-                  );
-                })
+              imageUrl: homeScreenContoroler.poster.value.image!,
+              imageBuilder: (context, imageProvider) {
+                return Container(
+                  height: size.height / 4.20,
+                  width: size.width / 1.25,
+                  decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(25)),
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      )),
+                  foregroundDecoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(25)),
+                      gradient: LinearGradient(
+                          colors: Gradiant.postercovergradiant,
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter)),
+                );
+              },
+              errorWidget: (context, url, error) {
+                return const Icon(
+                  Icons.image_not_supported_outlined,
+                  color: SolidColors.dvidercolor,
+                  size: 50,
+                );
+              },
+              placeholder: (context, url) => const Loading(),
+            ),
           ],
         ),
         Positioned(
@@ -110,7 +125,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ],
           ),
-        )
+        ),
       ],
     );
   }
@@ -125,7 +140,8 @@ class HomeScreen extends StatelessWidget {
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
-                singleArticleContoroller.getSimilarinfo(homeScreenContoroler.topVisitedList[index].id!);
+                singleArticleContoroller.getSimilarinfo(
+                    homeScreenContoroler.topVisitedList[index].id!);
               },
               child: Padding(
                 padding: EdgeInsets.only(right: index == 0 ? bodymargin : 8),
@@ -160,8 +176,8 @@ class HomeScreen extends StatelessWidget {
                                 );
                               },
                               placeholder: (context, url) => const Loading(),
-                              errorWidget: (context, url, error) =>
-                                  const Icon(Icons.image_not_supported_outlined),
+                              errorWidget: (context, url, error) => const Icon(
+                                  Icons.image_not_supported_outlined),
                             ),
                           ),
                         ),
@@ -323,39 +339,6 @@ class SeeMorePodcast extends StatelessWidget {
           ),
           Text(
             MyStrings.viewhotestpodcast,
-            style: textTheme.titleMedium,
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class SeeMoreBlog extends StatelessWidget {
-  const SeeMoreBlog({
-    super.key,
-    required this.bodymargin,
-    required this.textTheme,
-  });
-
-  final double bodymargin;
-  final TextTheme textTheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(right: bodymargin, bottom: 15),
-      child: Row(
-        children: [
-          ImageIcon(
-            Assets.icons.bluepen.provider(),
-            color: SolidColors.bluepen,
-          ),
-          const SizedBox(
-            width: 8,
-          ),
-          Text(
-            MyStrings.viewhotestwrite,
             style: textTheme.titleMedium,
           )
         ],

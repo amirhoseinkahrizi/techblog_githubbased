@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:techblog_githubbased/component/my_constant.dart';
+import 'package:techblog_githubbased/constante/my_constant.dart';
 import 'package:techblog_githubbased/controller/home_screen_contoroller.dart';
-import 'package:techblog_githubbased/controller/list_article_contoroller.dart';
+import 'package:techblog_githubbased/controller/article/list_article_contoroller.dart';
 import 'package:techblog_githubbased/gen/assets.gen.dart';
-import 'package:techblog_githubbased/view/article_list_screen.dart';
+import 'package:techblog_githubbased/view/article/article_list_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'my_colors.dart';
+import '../constante/my_colors.dart';
 
 class TechDivider extends StatelessWidget {
   const TechDivider({
@@ -28,8 +28,9 @@ class TechDivider extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class MainTags extends StatelessWidget {
-   MainTags({
+  MainTags({
     super.key,
     required this.textTheme,
     required this.index,
@@ -38,8 +39,9 @@ class MainTags extends StatelessWidget {
   final TextTheme textTheme;
   final index;
 
-  HomeScreenContoroler homeScreenContoroler =Get.put(HomeScreenContoroler());
-  ListArticleContoroller listArticleContoroller =Get.put(ListArticleContoroller());
+  HomeScreenContoroler homeScreenContoroler = Get.put(HomeScreenContoroler());
+  ListArticleContoroller listArticleContoroller =
+      Get.put(ListArticleContoroller());
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +67,10 @@ class MainTags extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                   listArticleContoroller.getArticleListWithTagsId(homeScreenContoroler.tagList[index].id!);
-            Get.to(ArticleListScreen(title: homeScreenContoroler.tagList[index].title));
+                  listArticleContoroller.getArticleListWithTagsId(
+                      homeScreenContoroler.tagList[index].id!);
+                  Get.to(ArticleListScreen(
+                      title: homeScreenContoroler.tagList[index].title));
                 },
                 child: Text(
                   Get.find<HomeScreenContoroler>().tagList[index].title!,
@@ -138,13 +142,36 @@ PreferredSize appBar(String title) {
   );
 }
 
+class SeeMoreBlog extends StatelessWidget {
+  SeeMoreBlog(
+      {super.key,
+      required this.bodymargin,
+      required this.textTheme,
+      required this.title});
 
+  final double bodymargin;
+  final TextTheme textTheme;
+  String title;
 
-
- 
-  
- 
-
-
-
-
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(right: bodymargin, bottom: 15),
+      child: Row(
+        children: [
+          ImageIcon(
+            Assets.icons.bluepen.provider(),
+            color: SolidColors.bluepen,
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          Text(
+            title,
+            style: textTheme.titleMedium,
+          )
+        ],
+      ),
+    );
+  }
+}

@@ -4,9 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:techblog_githubbased/controller/home_screen_contoroller.dart';
 import 'package:techblog_githubbased/gen/assets.gen.dart';
-import 'package:techblog_githubbased/component/my_colors.dart';
+import 'package:techblog_githubbased/constante/my_colors.dart';
 import 'package:techblog_githubbased/component/my_component.dart';
-import 'package:techblog_githubbased/component/my_string.dart';
+import 'package:techblog_githubbased/constante/my_string.dart';
 import 'dart:developer';
 
 import 'package:techblog_githubbased/models/facke_data.dart';
@@ -18,7 +18,8 @@ class Mycats extends StatefulWidget {
   State<Mycats> createState() => _MycatsState();
 }
 
-HomeScreenContoroler homeScreenContoroler =Get.put(homeScreenContoroler);
+HomeScreenContoroler homeScreenContoroler = Get.put(homeScreenContoroler);
+
 class _MycatsState extends State<Mycats> {
   @override
   Widget build(BuildContext context) {
@@ -92,8 +93,7 @@ class _MycatsState extends State<Mycats> {
                                   if (!selectedtag.contains(taglist[index])) {
                                     selectedtag.add(taglist[index]);
                                   } else {
-                                    log(
-                                        "${selectedtag[index].title} is exist");
+                                    log("${selectedtag[index].title} is exist");
                                   }
                                 });
                               },

@@ -1,4 +1,4 @@
-import 'package:techblog_githubbased/component/api_constant.dart';
+import 'package:techblog_githubbased/constante/api_constant.dart';
 
 class ArticleModel {
   String? id;
@@ -24,28 +24,14 @@ class ArticleModel {
   });
 
   ArticleModel.fromJson(Map<String, dynamic> element) {
-
-
-  id=element["id"];
-  title=element["title"];
-  image=ApiConstant.hostDlUrl+element["image"];
-  catId=element["cat_id"];
-  catName=element["cat_name"];
-  author=element["author"];
-  view=element["view"];
-  status=element["status"];
-  createdAt=element["created_at"];
-
-
-
-
-
-
-
+    id = element["id"];
+    title = element["title"];
+    image = ApiUrlConstant.hostDlUrl + element["image"];
+    catId = element["cat_id"];
+    catName = element["cat_name"];
+    author = element["author"];
+    view = element["view"];
+    status = element["status"];
+    createdAt = element["created_at"];
   }
-
-
 }
-
-
-          

@@ -2,14 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:techblog_githubbased/component/my_colors.dart';
+import 'package:techblog_githubbased/constante/my_colors.dart';
 import 'package:techblog_githubbased/component/my_component.dart';
-import 'package:techblog_githubbased/component/my_string.dart';
-import 'package:techblog_githubbased/controller/list_article_contoroller.dart';
-import 'package:techblog_githubbased/controller/single_article_contoroller.dart';
+import 'package:techblog_githubbased/constante/my_string.dart';
+import 'package:techblog_githubbased/controller/article/list_article_contoroller.dart';
+import 'package:techblog_githubbased/controller/article/single_article_contoroller.dart';
 import 'package:techblog_githubbased/gen/assets.gen.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-import 'package:techblog_githubbased/view/article_list_screen.dart';
+import 'package:techblog_githubbased/view/article/article_list_screen.dart';
 
 // ignore: must_be_immutable
 class SingleScreen extends StatelessWidget {
@@ -89,15 +89,17 @@ class SingleScreen extends StatelessWidget {
                                     const SizedBox(
                                       width: 20,
                                     ),
-                                     GestureDetector(
+                                    GestureDetector(
                                       onTap: () {
-                                      Share.share("سلام من از تک بلاگ استفاده خیلی باحاله شما هم استفاده کن ",subject: "مقاله ها");
-                                        },
-                                       child: const Icon(
+                                        Share.share(
+                                            "سلام من از تک بلاگ استفاده خیلی باحاله شما هم استفاده کن ",
+                                            subject: "مقاله ها");
+                                      },
+                                      child: const Icon(
                                         Icons.share,
                                         color: Colors.white,
-                                                                           ),
-                                     ),
+                                      ),
+                                    ),
                                     const SizedBox(
                                       width: 20,
                                     )
@@ -165,63 +167,7 @@ class SingleScreen extends StatelessWidget {
                       const SizedBox(
                         height: 50,
                       ),
-                      SizedBox(
-                        height: 35,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: singleArticleContoroller.tagList.length,
-                          physics: const BouncingScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding:
-                                  EdgeInsets.only(right: index == 0 ? 25 : 15),
-                              child: GestureDetector(
-                                onTap: () async {
-                                  var tagID = singleArticleContoroller
-                                      .tagList[index].id!;
-                                  await Get.find<ListArticleContoroller>()
-                                      .getArticleListWithTagsId(tagID);
-                                  String tagTitle = singleArticleContoroller
-                                      .tagList[index].title!;
-                                  Get.to(ArticleListScreen(
-                                    title: tagTitle,
-                                  ));
-                                },
-                                child: Container(
-                                  decoration: const BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(25)),
-                                      color: SolidColors.tagcolors,
-                                      border: Border.fromBorderSide(BorderSide(
-                                          color: SolidColors.tagborder))),
-                                  child: Row(
-                                    children: [
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      ImageIcon(
-                                        Assets.icons.hashtag.provider(),
-                                        color: Colors.black45,
-                                      ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(
-                                        singleArticleContoroller
-                                            .tagList[index].title!,
-                                        style: textTheme.bodySmall,
-                                      ),
-                                      const SizedBox(
-                                        width: 10,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
+                      TagsList(textTheme),
                       const SizedBox(
                         height: 55,
                       ),
@@ -347,6 +293,62 @@ class SingleScreen extends StatelessWidget {
                   ),
           ),
         ),
+      ),
+    );
+  }
+
+  SizedBox TagsList(TextTheme textTheme) {
+    return SizedBox(
+      height: 35,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: singleArticleContoroller.tagList.length,
+        physics: const BouncingScrollPhysics(),
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: EdgeInsets.only(right: index == 0 ? 25 : 15),
+            child: GestureDetector(
+              onTap: () async {
+                var tagID = singleArticleContoroller.tagList[index].id!;
+                await Get.find<ListArticleContoroller>()
+                    .getArticleListWithTagsId(tagID);
+                String tagTitle =
+                    singleArticleContoroller.tagList[index].title!;
+                Get.to(ArticleListScreen(
+                  title: tagTitle,
+                ));
+              },
+              child: Container(
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                    color: SolidColors.tagcolors,
+                    border: Border.fromBorderSide(
+                        BorderSide(color: SolidColors.tagborder))),
+                child: Row(
+                  children: [
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    ImageIcon(
+                      Assets.icons.hashtag.provider(),
+                      color: Colors.black45,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      singleArticleContoroller.tagList[index].title!,
+                      style: textTheme.bodySmall,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
