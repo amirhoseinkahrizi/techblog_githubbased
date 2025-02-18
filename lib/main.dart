@@ -10,7 +10,7 @@ import 'package:techblog_githubbased/view/article/manage_article.dart';
 import 'package:techblog_githubbased/view/article/manage_single_article_screen.dart';
 import 'package:techblog_githubbased/view/main_screen/main_screen.dart';
 import 'package:techblog_githubbased/view/article/single_screen.dart';
-import 'package:techblog_githubbased/view/splashscreen.dart';
+import 'package:techblog_githubbased/view/podcast/single_podcast_screen.dart';
 import 'http_overrides.dart';
 
 void main() async {
@@ -90,7 +90,7 @@ class MyApp extends StatelessWidget {
               page: () => ManageSingleArticleScreen(),
               binding: ArticleManagerbinding())
         ],
-        home: const SplashScreen());
+        home: const SinglePodcast());
   }
 
   TextTheme lighTheme() {

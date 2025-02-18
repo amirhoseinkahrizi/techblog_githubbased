@@ -22,6 +22,9 @@ class $AssetsIconsGen {
   AssetGenImage get homeIcon =>
       const AssetGenImage('assets/icons/home icon.png');
 
+  /// File path: assets/icons/micpone.png
+  AssetGenImage get micpone => const AssetGenImage('assets/icons/micpone.png');
+
   /// File path: assets/icons/microphoneIcons.svg
   String get microphoneIcons => 'assets/icons/microphoneIcons.svg';
 
@@ -49,6 +52,7 @@ class $AssetsIconsGen {
         bluepen,
         hashtag,
         homeIcon,
+        micpone,
         microphoneIcons,
         podcastIcons,
         techBot,
