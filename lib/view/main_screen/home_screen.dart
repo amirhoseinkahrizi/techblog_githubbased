@@ -7,6 +7,7 @@ import 'package:techblog_githubbased/gen/assets.gen.dart';
 import 'package:techblog_githubbased/constante/my_colors.dart';
 import 'package:techblog_githubbased/component/my_component.dart';
 import 'package:techblog_githubbased/constante/my_string.dart';
+import 'package:techblog_githubbased/main.dart';
 import 'package:techblog_githubbased/view/article/article_list_screen.dart';
 
 // ignore: must_be_immutable
@@ -248,29 +249,36 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(
                       height: size.height / 6,
                       width: size.width / 3,
-                      child: CachedNetworkImage(
-                        imageUrl:
-                            homeScreenContoroler.topPodcast[index].poster!,
-                        imageBuilder: (context, imageProvider) {
-                          return Container(
-                            decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(38),
-                                ),
-                                image: DecorationImage(
-                                    image: imageProvider, fit: BoxFit.cover)),
-                          );
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.toNamed(NamedRoute.routesinglepadcast,
+                              arguments:
+                                  homeScreenContoroler.topPodcast[index]);
                         },
-                        placeholder: (context, url) {
-                          return const Loading();
-                        },
-                        errorWidget: (context, url, error) {
-                          return const Icon(
-                            Icons.image_not_supported_outlined,
-                            size: 50,
-                            color: Colors.grey,
-                          );
-                        },
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              homeScreenContoroler.topPodcast[index].poster!,
+                          imageBuilder: (context, imageProvider) {
+                            return Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(38),
+                                  ),
+                                  image: DecorationImage(
+                                      image: imageProvider, fit: BoxFit.cover)),
+                            );
+                          },
+                          placeholder: (context, url) {
+                            return const Loading();
+                          },
+                          errorWidget: (context, url, error) {
+                            return const Icon(
+                              Icons.image_not_supported_outlined,
+                              size: 50,
+                              color: Colors.grey,
+                            );
+                          },
+                        ),
                       )),
                   const SizedBox(
                     height: 10,

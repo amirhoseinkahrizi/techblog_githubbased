@@ -9,6 +9,8 @@ class ApiUrlConstant {
   static const postRegister = "${baseurl}register/action.php";
   static const gettaglist = "${baseurl}article/get.php?command=tags";
   static const postarticle = "${baseurl}article/post.php";
+  static const getpodcastfile =
+      "${baseurl}podcast/get.php?command=get_files&podcats_id=";
 }
 
 class ApiArticleKeyConstance {

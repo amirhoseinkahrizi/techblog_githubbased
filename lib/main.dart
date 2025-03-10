@@ -11,6 +11,7 @@ import 'package:techblog_githubbased/view/article/manage_single_article_screen.d
 import 'package:techblog_githubbased/view/main_screen/main_screen.dart';
 import 'package:techblog_githubbased/view/article/single_screen.dart';
 import 'package:techblog_githubbased/view/podcast/single_podcast_screen.dart';
+import 'package:techblog_githubbased/view/splashscreen.dart';
 import 'http_overrides.dart';
 
 void main() async {
@@ -88,9 +89,11 @@ class MyApp extends StatelessWidget {
           GetPage(
               name: NamedRoute.routemanagesinglearticle,
               page: () => ManageSingleArticleScreen(),
-              binding: ArticleManagerbinding())
+              binding: ArticleManagerbinding()),
+          GetPage(
+              name: NamedRoute.routesinglepadcast, page: () => SinglePodcast())
         ],
-        home: const SinglePodcast());
+        home: const SplashScreen());
   }
 
   TextTheme lighTheme() {
@@ -168,4 +171,5 @@ class NamedRoute {
   static const routesingleArticle = '/SingleArticele';
   static const routemanagearticle = '/ManageArticle';
   static const routemanagesinglearticle = "/ManageSingleArticleScreen";
+  static const routesinglepadcast = "/SinglePodcast";
 }
