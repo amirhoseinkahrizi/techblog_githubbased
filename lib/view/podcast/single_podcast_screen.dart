@@ -7,6 +7,8 @@ import 'package:techblog_githubbased/constante/my_colors.dart';
 import 'package:techblog_githubbased/controller/podcast/single_podcast_contoroller.dart';
 import 'package:techblog_githubbased/gen/assets.gen.dart';
 import 'package:techblog_githubbased/models/podcast_model.dart';
+import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
+
 
 class SinglePodcast extends StatelessWidget {
   late SinglePodcastContoroller singlePodcastContoroller;
@@ -136,11 +138,12 @@ class SinglePodcast extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.all(18),
                         child: GestureDetector(
-                          onTap: () {
-                            singlePodcastContoroller.player
+                          onTap: ()async {
+                           await singlePodcastContoroller.player
                                 .seek(Duration.zero, index: index);
                             singlePodcastContoroller.selectedIndex.value =
                                 singlePodcastContoroller.player.currentIndex!;
+                                singlePodcastContoroller.checktimerstatus();
                           },
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -206,18 +209,47 @@ class SinglePodcast extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    const LinearProgressIndicator(
-                      backgroundColor: Colors.white,
-                      color: Colors.orangeAccent,
-                      value: 0.4,
-                      minHeight: 9.5,
-                    ),
+                   Obx(
+                    ()=> ProgressBar(
+                     
+                      
+                      progress: singlePodcastContoroller.progressvalue.value,
+                      total: singlePodcastContoroller.player.duration??const Duration(seconds: 0),
+                         
+                      buffered: singlePodcastContoroller.bufferedvalue.value,
+                      thumbColor: Colors.yellow,
+                      baseBarColor: Colors.amber,
+                      progressBarColor: Colors.white,
+                      onSeek: (Positioned) async {
+                        singlePodcastContoroller.player.seek(Positioned);
+                        if (singlePodcastContoroller.player.playing) {
+                          singlePodcastContoroller.StartProgress();
+
+                        } else if ((Positioned <= const Duration(seconds: 0))) {
+                          await singlePodcastContoroller.player.seekToNext();
+                          singlePodcastContoroller.checktimerstatus();
+                            singlePodcastContoroller.timer!.cancel();
+                            singlePodcastContoroller.selectedIndex.value =
+                                singlePodcastContoroller.player.currentIndex!;
+                          
+                        }
+                        
+                      },
+                     ),
+                   ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GestureDetector(
-                          onTap: () {
-                            singlePodcastContoroller.player.seekToNext();
+                          onTap: ()async {
+                          await  singlePodcastContoroller.player.seekToNext();
+                          singlePodcastContoroller.checktimerstatus();
+                            singlePodcastContoroller.selectedIndex.value =
+                            singlePodcastContoroller.player.currentIndex!;
+
+                                ///todo:maelom nist chekar mokoneh
+                            singlePodcastContoroller.timer!.cancel();
+                          
                           },
                           child: const Icon(
                             Icons.skip_next_rounded,
@@ -227,14 +259,24 @@ class SinglePodcast extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            singlePodcastContoroller.playstatus.value == false
-                                ? singlePodcastContoroller.player.play()
-                                : singlePodcastContoroller.player.pause();
-                            singlePodcastContoroller.playstatus.value =
+                            
+                            if ( singlePodcastContoroller.player.playing==true) {
+                              singlePodcastContoroller.StartProgress();
+                                singlePodcastContoroller.player.pause() ;
+                                singlePodcastContoroller.timer!.cancel();
+                                singlePodcastContoroller.checktimerstatus();
+                            } else if(singlePodcastContoroller.player.playing==false) {
+                              singlePodcastContoroller.player.play();
+                              singlePodcastContoroller.timer!.cancel();  
+                              singlePodcastContoroller.checktimerstatus();
+                            }
+
+                              singlePodcastContoroller.playstatus.value =
                                 singlePodcastContoroller.player.playing;
                             singlePodcastContoroller.selectedIndex.value =
                                 singlePodcastContoroller.player.currentIndex!;
-                          },
+                                
+                           },
                           child: Obx(() => Icon(
                                 singlePodcastContoroller.playstatus.value ==
                                         false
@@ -245,22 +287,34 @@ class SinglePodcast extends StatelessWidget {
                               )),
                         ),
                         GestureDetector(
-                          onTap: () {
-                            singlePodcastContoroller.player.seekToPrevious();
+                          onTap: () async{
+                           await singlePodcastContoroller.player.seekToPrevious();
                             singlePodcastContoroller.selectedIndex.value =
                                 singlePodcastContoroller.player.currentIndex!;
+                                singlePodcastContoroller.playstatus.value =
+                                singlePodcastContoroller.player.playing;
+                             singlePodcastContoroller.checktimerstatus();
+                             
+
                           },
-                          child: const Icon(
+                          child:  const Icon(
                             Icons.skip_previous_outlined,
                             color: Colors.white,
                             size: 40,
                           ),
                         ),
                         const SizedBox(),
-                        const Icon(
-                          Icons.repeat,
-                          color: Colors.white,
-                          size: 40,
+                        GestureDetector(
+                          onTap: () {
+                            singlePodcastContoroller.setloppmode();
+                          },
+                          child:  Obx(
+                            ()=> Icon(
+                              Icons.repeat,
+                              color:singlePodcastContoroller.IsLoopAll.value?Colors.blue: Colors.white,
+                              size: 40,
+                            ),
+                          ),
                         )
                       ],
                     )

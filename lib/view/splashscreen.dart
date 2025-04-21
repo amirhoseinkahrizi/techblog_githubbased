@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:techblog_githubbased/constante/my_colors.dart';
 import 'package:techblog_githubbased/gen/assets.gen.dart';
-import 'package:techblog_githubbased/main.dart';
+import 'package:techblog_githubbased/route_manager/names.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

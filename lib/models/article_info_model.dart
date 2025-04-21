@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:techblog_githubbased/constante/api_constant.dart';
 
 class ArticleInfoModel {
@@ -13,8 +11,7 @@ class ArticleInfoModel {
   String? view;
   String? status;
   String? createdAt;
-  Bool? isFavorite;
-
+  bool? isFavorite;
   ArticleInfoModel(this.title, this.image, this.content);
 
   ArticleInfoModel.fromJson(Map<String, dynamic> element) {

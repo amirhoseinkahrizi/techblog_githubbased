@@ -46,12 +46,13 @@ dependencies:
   cached_network_image: ^3.4.1
   expandable_text: ^2.3.0
   get_storage:
-  flutter_widget_from_html: ^0.15.3
+  flutter_widget_from_html: ^0.16.0
   file_picker: ^8.0.3
   flutter_inappwebview: ^6.0.3
   html_editor_enhanced: ^2.6.0
   percent_indicator: ^4.2.4
   just_audio: ^0.9.46
+  audio_video_progress_bar: ^2.0.3
 
 dev_dependencies:
   flutter_test:

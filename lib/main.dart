@@ -3,19 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:techblog_githubbased/binding.dart';
+import 'package:techblog_githubbased/route_manager/binding.dart';
 import 'package:techblog_githubbased/constante/my_colors.dart';
 import 'package:techblog_githubbased/gen/fonts.gen.dart';
-import 'package:techblog_githubbased/view/article/manage_article.dart';
-import 'package:techblog_githubbased/view/article/manage_single_article_screen.dart';
-import 'package:techblog_githubbased/view/main_screen/main_screen.dart';
-import 'package:techblog_githubbased/view/article/single_screen.dart';
-import 'package:techblog_githubbased/view/podcast/single_podcast_screen.dart';
-import 'package:techblog_githubbased/view/splashscreen.dart';
+import 'package:techblog_githubbased/route_manager/names.dart';
+import 'package:techblog_githubbased/route_manager/pages.dart';
 import 'http_overrides.dart';
 
 void main() async {
   await GetStorage.init();
+  
 
   // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -73,27 +70,8 @@ class MyApp extends StatelessWidget {
           ),
           textTheme: lighTheme(),
         ),
-        getPages: [
-          GetPage(
-              name: NamedRoute.routeMainScreen,
-              page: () => MainScreen(),
-              binding: Registerbinding()),
-          GetPage(
-              name: NamedRoute.routesingleArticle,
-              page: () => SingleScreen(),
-              binding: Articlebinding()),
-          GetPage(
-              name: NamedRoute.routemanagearticle,
-              page: () => ManageArticle(),
-              binding: ArticleManagerbinding()),
-          GetPage(
-              name: NamedRoute.routemanagesinglearticle,
-              page: () => ManageSingleArticleScreen(),
-              binding: ArticleManagerbinding()),
-          GetPage(
-              name: NamedRoute.routesinglepadcast, page: () => SinglePodcast())
-        ],
-        home: const SplashScreen());
+        getPages:Pages.pages,
+        initialRoute: NamedRoute.routeinitialRoute,);
   }
 
   TextTheme lighTheme() {
@@ -166,10 +144,4 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class NamedRoute {
-  static const routeMainScreen = '/MainScreen';
-  static const routesingleArticle = '/SingleArticele';
-  static const routemanagearticle = '/ManageArticle';
-  static const routemanagesinglearticle = "/ManageSingleArticleScreen";
-  static const routesinglepadcast = "/SinglePodcast";
-}
+
