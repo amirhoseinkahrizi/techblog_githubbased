@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:techblog_githubbased/constante/api_constant.dart';
-import 'package:techblog_githubbased/constante/commands.dart';
 import 'package:techblog_githubbased/constante/storage_const.dart';
 import 'package:techblog_githubbased/controller/pickfile_contoroller.dart';
 import 'package:techblog_githubbased/models/article_info_model.dart';
@@ -62,7 +61,7 @@ class ManageArticleContoroller extends GetxController {
       ApiArticleKeyConstance.userId: myUserId,
       ApiArticleKeyConstance.image:
           await dio.MultipartFile.fromFile(fileContoroller.file.value.path!),
-      ApiArticleKeyConstance.command: Commands.store
+      ApiArticleKeyConstance.command: "store"
     };
     log("mapppppp$map");
     var response =

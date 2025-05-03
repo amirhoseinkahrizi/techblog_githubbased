@@ -1,4 +1,5 @@
 class ApiUrlConstant {
+  ApiUrlConstant._();
   static const hostDlUrl = "https://techblog.sasansafari.com";
   static const baseurl = "https://techblog.sasansafari.com/Techblog/api/";
   static const gethomeItems = '${baseurl}home/?command=index';

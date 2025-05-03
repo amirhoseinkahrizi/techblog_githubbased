@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
           textTheme: lighTheme(),
         ),
         getPages:Pages.pages,
-        initialRoute: NamedRoute.routeinitialRoute,);
+        initialRoute: NamedRoute.routeinitialRoute);
   }
 
   TextTheme lighTheme() {

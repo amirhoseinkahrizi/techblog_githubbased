@@ -32,9 +32,15 @@ class ListArticleContoroller extends GetxController {
     //  RxBool loading=true.obs;
 
     taglist = RxList();
+    final queryparam ={
+      "command":"get_articles_with_tag",
+      "tag_id":iD,
+      "user_id":""
 
-    var response = await DioServices().getMethod(
-        '${ApiUrlConstant.baseurl}article/get.php?command=get_articles_with_tag_id&tag_id=$iD&user_id=');
+    };
+    final uri=Uri.https(ApiUrlConstant.baseurl,'article/get.php?',queryparam);
+
+    var response = await DioServices().getMethod(uri.toString());
 
     if (response.statusCode == 200) {
       response.data.forEach((element) {
